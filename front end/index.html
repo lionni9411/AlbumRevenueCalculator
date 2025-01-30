@@ -304,19 +304,27 @@
     let userTaxRate = 20; // Par défaut
 
     // Détection du pays via une API de géolocalisation
-    async function detectCountryAndTaxRate() {
-        try {
-            const response = await fetch("https://ipapi.co/json/");
-            const data = await response.json();
-            const countryCode = data.country_code || "FR";
-            userTaxRate = countryTaxRates[countryCode] || 20; // Par défaut à 20%
-            console.log(`Pays détecté: ${data.country_name}, Taux de taxe: ${userTaxRate}%`);
-        } catch (error) {
-            console.error("Erreur lors de la détection du pays:", error);
-        }
-    }
+   async function detectCountryAndTaxRate() {
+    try {
+        const response = await fetch("https://ipapi.co/json/");
+        const data = await response.json();
+        const countryCode = data.country_code || "FR";
 
-    detectCountryAndTaxRate();
+        const countryTaxRates = {
+            FR: 20,  // France
+            US: 15,  // États-Unis
+            UK: 19,  // Royaume-Uni
+            DE: 16   // Allemagne
+        };
+
+        userTaxRate = countryTaxRates[countryCode] || 20; // Par défaut à 20%
+        console.log(`Pays détecté: ${data.country_name}, Taux de taxe: ${userTaxRate}%`);
+    } catch (error) {
+        console.error("Erreur lors de la détection du pays:", error);
+    }
+}
+detectCountryAndTaxRate();
+
 
     document.getElementById('revenueForm').addEventListener('submit', async function(event) {
         event.preventDefault(); // Empêche le rechargement de la page
