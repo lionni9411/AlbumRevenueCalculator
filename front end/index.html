@@ -231,8 +231,9 @@
     <label for="productionCost">Production Cost (€):</label>
     <input type="number" id="productionCost" name="productionCost" placeholder="e.g., 50000" required>
 
-    <label for="labelShare">Label Share (%):</label>
-    <input type="number" id="labelShare" name="labelShare" placeholder="e.g., 50" required>
+   <label for="labelShare">Label Share (%):</label>
+<input type="number" id="labelShare" name="labelShare" placeholder="e.g., 50" required min="0" max="100">
+
 
     <button id="calculateBtn" type="submit">Calculate</button>
 </form>
