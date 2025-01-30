@@ -285,6 +285,8 @@
 
             try {
                 // Envoie une requête POST au backend Flask
+                document.getElementById('result').innerText = "Calcul en cours...";
+
                 const response = await fetch("https://albumrevenuecalculator.onrender.com/calculate", {
     method: "POST",
     headers: {
@@ -390,7 +392,13 @@ const response = await fetch("https://albumrevenuecalculator.onrender.com/calcul
     })
 });
 
-const data = await response.json(); // ✅ Récupérer la réponse JSON
+if (!response.ok) {
+    console.error("Erreur API:", response.statusText);
+    document.getElementById('result').innerText = "Erreur: Impossible de récupérer les données.";
+    return;
+}
+const data = await response.json();
+ // ✅ Récupérer la réponse JSON
 console.log("Réponse API :", data); // ✅ Debugging
 
         // ✅ Afficher les résultats correctement
