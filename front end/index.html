@@ -380,11 +380,15 @@ const data = await response.json(); // ✅ Récupérer la réponse JSON
 console.log("Réponse API :", data); // ✅ Debugging
 
         // ✅ Afficher les résultats correctement
-document.getElementById('result').innerText =
-    `Net Revenue: €${data.netRevenue.toFixed(2)}\n` +
-    `Tax Rate: ${data.taxRate}%\n` +
-    `(Before Tax: €${data.totalRevenue.toFixed(2)}, After Label: €${data.revenueAfterLabel.toFixed(2)})`;
-
+if (data && data.netRevenue !== undefined) {
+    document.getElementById('result').innerText =
+        `Net Revenue: €${data.netRevenue.toFixed(2)}\n` +
+        `Tax Rate: ${data.taxRate}%\n` +
+        `(Before Tax: €${data.totalRevenue.toFixed(2)}, After Label: €${data.revenueAfterLabel.toFixed(2)})`;
+} else {
+    document.getElementById('result').innerText = "Erreur : les données ne sont pas disponibles.";
+    console.error("Réponse API invalide :", data);
+}
 
 // ✅ Afficher les résultats correctement
 resultElement.innerText =
