@@ -279,9 +279,16 @@
     headers: {
         "Content-Type": "application/json"
     },
+    body: JSON.stringify({
+        streams: parseFloat(document.getElementById('streams').value) || 0,
+        physicalSales: parseFloat(document.getElementById('physicalSales').value) || 0,
+        digitalSales: parseFloat(document.getElementById('digitalSales').value) || 0,
+        productionCost: parseFloat(document.getElementById('productionCost').value) || 0,
+        labelShare: parseFloat(document.getElementById('labelShare').value) / 100 || 0,
+        userTaxRate: userTaxRate || 20 // Assurer qu'une valeur est envoyée
+    })
+});
 
-                    body: JSON.stringify({ streams, physicalSales, digitalSales }),
-                });
 
                 // Vérifie si la réponse est OK
                 if (response.ok) {
