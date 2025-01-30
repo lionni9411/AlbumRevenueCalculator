@@ -346,11 +346,9 @@ detectCountryAndTaxRate();
 
         document.getElementById('result').innerText =
     `Net Revenue: €${netRevenue.toFixed(2)}\n` +
+    `Tax Rate: ${userTaxRate}%\n` +
     `(Before Tax: €${totalRevenue.toFixed(2)}, After Label: €${revenueAfterLabel.toFixed(2)})`;
-    document.getElementById('result').innerText =
-        `Net Revenue: €${netRevenue.toFixed(2)}\n` +
-        `Tax Rate: ${userTaxRate}%\n` +
-        `(Before Tax: €${totalRevenue.toFixed(2)}, After Label: €${revenueAfterLabel.toFixed(2)})`;
+
 
     });
 </script>
