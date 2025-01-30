@@ -359,10 +359,39 @@ detectCountryAndTaxRate();
         const revenueAfterTax = revenueAfterLabel * (1 - userTaxRate / 100);
         const netRevenue = revenueAfterTax - productionCost;
 
-        document.getElementById('result').innerText =
-    `Net Revenue: €${netRevenue.toFixed(2)}\n` +
-    `Tax Rate: ${userTaxRate}%\n` +
-    `(Before Tax: €${totalRevenue.toFixed(2)}, After Label: €${revenueAfterLabel.toFixed(2)})`;
+        const resultElement = document.getElementById('result');
+
+const response = await fetch("https://albumrevenuecalculator.onrender.com/calculate", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        streams: parseFloat(document.getElementById('streams').value) || 0,
+        physicalSales: parseFloat(document.getElementById('physicalSales').value) || 0,
+        digitalSales: parseFloat(document.getElementById('digitalSales').value) || 0,
+        productionCost: parseFloat(document.getElementById('productionCost').value) || 0,
+        labelShare: parseFloat(document.getElementById('labelShare').value) / 100 || 0,
+        userTaxRate: userTaxRate || 20
+    })
+});
+
+const data = await response.json(); // ✅ Récupérer la réponse JSON
+console.log("Réponse API :", data); // ✅ Debugging
+
+        // ✅ Afficher les résultats correctement
+document.getElementById('result').innerText =
+    `Net Revenue: €${data.netRevenue.toFixed(2)}\n` +
+    `Tax Rate: ${data.taxRate}%\n` +
+    `(Before Tax: €${data.totalRevenue.toFixed(2)}, After Label: €${data.revenueAfterLabel.toFixed(2)})`;
+
+
+// ✅ Afficher les résultats correctement
+resultElement.innerText =
+    `Net Revenue: €${data.netRevenue.toFixed(2)}\n` +
+    `Tax Rate: ${data.taxRate}%\n` +
+    `(Before Tax: €${data.totalRevenue.toFixed(2)}, After Label: €${data.revenueAfterLabel.toFixed(2)})`;
+
 
 
     });
