@@ -346,6 +346,33 @@
 
     });
 </script>
+<!-- AUTRES CONTENUS DU SITE -->
+
+<!-- Ici, on ajoute le script juste avant </body> -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const track = document.querySelector('.carousel-track');
+
+        function moveCarousel() {
+            const firstImage = track.firstElementChild;
+            const slideWidth = firstImage.offsetWidth + 20;
+
+            track.style.transition = 'transform 0.5s linear';
+            track.style.transform = `translateX(-${slideWidth}px)`;
+
+            setTimeout(() => {
+                track.appendChild(firstImage);
+                track.style.transition = 'none';
+                track.style.transform = 'translateX(0)';
+            }, 500);
+        }
+
+        setInterval(moveCarousel, 2000);
+    });
+</script>
+
+</body>
+</html>
 
 </body>
 </html>
